@@ -1,0 +1,135 @@
+﻿@page "/DMG"
+@using CapyGoDMG.Data
+@using CapyGoDMG.Models
+@rendermode InteractiveServer
+
+<PageTitle>Damage Calculator</PageTitle>
+
+<div class="row">
+    <div class="col-lg-2">
+        <h3>Stats</h3>
+        Values taken from your stat sheet
+        <dl class="dl-horizontal">
+            <h4>ATK Value</h4>
+            <dt>ATK</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Atk_Equipment" width="100px" /></dd>
+            <dt>ATK%</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Atk_PercentUp" width="100px" /></dd>
+            <dt>Global ATK%</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Atk_GlobalAtk" width="100px" /></dd>
+            <dt>Adventurer Multiplier</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Atk_Adventurer" width="100px" /></dd>
+            
+            <br />
+            <h4>DMG</h4>
+            <dt>DMG Increase</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_DMGIncrease" width="100px" /></dd>
+            <dt>Crit DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_CritDMG" width="100px" /></dd>
+            <dt>Combo DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_ComboDMG" width="100px" /></dd>
+            <dt>Counter DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_CounterDMG" width="100px" /></dd>
+            <dt>Basic ATK DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_BasicDMG" width="100px" /></dd>
+            <dt>Rage Skill DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_RageDMG" width="100px" /></dd>
+            <dt>Skill DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_SkillDMG" width="100px" /></dd>
+            <dt>Pet DMG</dt>
+            <dd>N/A</dd>
+            <dt>Ice DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_IceDMG" width="100px" /></dd>
+            <dt>Fire DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_FireDMG" width="100px" /></dd>
+            <dt>Lightning DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_LightningDMG" width="100px" /></dd>
+            <dt>Physical DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_PhysicalDMG" width="100px" /></dd>
+
+            <br />
+            <h4>Global</h4>            
+            <dt>Global DMG</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Stat_Global_DMGIncrease" width="100px" /></dd>
+        </dl>
+    </div>
+
+    <div class="col-lg-2">
+        <h3>Conditionals</h3>
+        Values taken from your conditional effects that do not apply to your stat sheet.
+        Such as Sphinx mount, Mythic Joker, etc..
+
+        <dl class="dl-horizontal">
+            <dt>Sphinx</dt>
+            <dd>
+                <input type="radio" name="Sphinx" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Sphinx = 0)" /> N/A -
+                <input type="radio" name="Sphinx" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Sphinx = 1)" /> 0* -
+                <input type="radio" name="Sphinx" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Sphinx = 2)" /> 5*
+            </dd>
+            <dt>Freya</dt>
+            <dd>
+                <input type="radio" name="Freya" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Freya = 0)" /> N/A -
+                <input type="radio" name="Freya" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Freya = 1)" /> Lv1 -
+                <input type="radio" name="Freya" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Freya = 2)" /> Lv20 -
+                <input type="radio" name="Freya" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Freya = 3)" /> Lv40 -
+                <input type="radio" name="Freya" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Freya = 4)" /> Lv60 -
+                <input type="radio" name="Freya" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Freya = 5)" /> Lv80 -
+            </dd>
+            <dt>Yawner (Ghost)</dt>
+            <dd>
+                <input type="radio" name="Yawner" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Yawner = 0)" /> N/A -
+                <input type="radio" name="Yawner" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Yawner = 1)" /> 1/3 -
+                <input type="radio" name="Yawner" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Yawner = 2)" /> 2/3 -
+                <input type="radio" name="Yawner" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Yawner = 3)" /> 3/3
+            </dd>
+            <dt>Mythic Joker</dt>
+            <dd>
+                <input type="radio" name="Joker" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Joker = 0)" /> N/A -
+                <input type="radio" name="Joker" @onchange="@(() => DMGCalcModel.CapyStats.Equip_Joker = 1)" /> Mythic                
+            </dd>
+        </dl>
+    </div>
+
+    <div class="col-lg-2">
+        <h3>Enemy Stats</h3>
+        
+        <dl class="dl-horizontal">
+            <dt>Enemy DEF</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Enemy_Defence" width="100px" /></dd>
+            <dt>Enemy DR</dt>
+            <dd><input type="number" @bind-value="DMGCalcModel.CapyStats.Enemy_DR" width="100px" /></dd>
+        </dl>
+    </div>
+
+    <div class="col-lg-2">
+        <h3>Results</h3>
+        <br />
+        ATK: @DMGCalcModel.CapyStats.TOTAL_ATK.ToKMB() - @DMGCalcModel.CapyStats.TOTAL_ATK
+        <br /><br />
+        With Bonus: <input type="checkbox" @bind-value="withBonus" />
+        <button class="btn btn-primary" @onclick="CalcDMG">Calc DMG</button>
+        <br/>
+        <div class="panel panel-primary" style="border:double; padding:2px">
+                @dmgCalcDesc
+        </div>
+    </div>
+</div>
+
+@code {
+    private DMGCalcModel DMGCalcModel = new DMGCalcModel();
+
+    private bool withBonus = false;
+
+    MarkupString dmgCalcDesc = new MarkupString();
+
+    private void CalcDMG()
+    {
+        var attacks = new Dictionary<Attack, int> {             
+            { Attack.NormalAttack, 1 }, { Attack.DaggerAttack, 1 },
+            { Attack.BoltAttack, 1 }, {Attack.ChiAttack, 1 } };
+
+        var result = DMGCalcModel.CalcDMGRaw(attacks, withBonus);
+
+        dmgCalcDesc = DMGCalcModel.CapyDamageResults.ParseAttacks(result);
+    }
+}
