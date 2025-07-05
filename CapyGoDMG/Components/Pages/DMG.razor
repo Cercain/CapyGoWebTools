@@ -126,7 +126,9 @@
     {
         var attacks = new Dictionary<Attack, int> {             
             { Attack.NormalAttack, 1 }, { Attack.DaggerAttack, 1 },
-            { Attack.BoltAttack, 1 }, {Attack.ChiAttack, 1 } };
+            { Attack.BoltAttack, 1 }, {Attack.ChiAttack, 1 },
+            { Attack.IcySpikeAttack, 1 }, { Attack.PoisonDotAttack, 1 },
+            { Attack.BurnDotAttack, 1 }, { Attack.LightSpearAttack, 1 }};
 
         var result = DMGCalcModel.CalcDMGRaw(attacks, withBonus);
 

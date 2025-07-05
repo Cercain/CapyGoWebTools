@@ -16,7 +16,9 @@
             Combo,
             Dagger,
             Bolt,
-            Chi
+            Chi,
+            Poison,
+            LightSpear
         }
 
         public enum StatsEnum
